@@ -1,0 +1,48 @@
+class CashierApp:
+    def __init__(self):
+        self.items = {}  # Dictionary to store item names and prices
+
+    def add_item(self, item_name, price):
+        self.items[item_name] = price
+
+    def calculate_total(self, cart):
+        total = 0
+        for item, quantity in cart.items():
+            if item in self.items:
+                total += self.items[item] * quantity
+            else:
+                print(f"Item '{item}' not found in the inventory.")
+        return total
+
+    def main(self):
+        while True:
+            print("\nCashier App Menu:")
+            print("1. Add item")
+            print("2. Calculate total")
+            print("3. Exit")
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                item_name = input("Enter item name: ")
+                price = float(input("Enter item price: "))
+                self.add_item(item_name, price)
+                print(f"'{item_name}' added to inventory.")
+            elif choice == "2":
+                cart = {}
+                while True:
+                    item = input("Enter item name (or 'done' to finish): ")
+                    if item.lower() == "done":
+                        break
+                    quantity = int(input(f"Enter quantity for '{item}': "))
+                    cart[item] = quantity
+                total_amount = self.calculate_total(cart)
+                print(f"Total amount: ${total_amount:.2f}")
+            elif choice == "3":
+                print("Thank you for using the Cashier App!")
+                break
+            else:
+                print("Invalid choice. Please select a valid option.")
+
+if __name__ == "__main__":
+    app = CashierApp()
+    app.main()
